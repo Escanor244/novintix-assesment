@@ -152,6 +152,7 @@ class Orchestrator:
 
         # Calculate response time
         response_time_ms = (time.time() - start_time) * 1000
+        response_time_ms = max(response_time_ms, 0.01)
 
         # Record metrics
         record_inquiry(intent.category)
@@ -320,6 +321,7 @@ class Orchestrator:
     ) -> InquiryResponse:
         """Handle emergency situations with immediate escalation."""
         response_time_ms = (time.time() - start_time) * 1000
+        response_time_ms = max(response_time_ms, 0.01)
 
         # Trigger critical alert
         alert_critical_escalation(
