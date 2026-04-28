@@ -9,9 +9,9 @@
 
 pytest tests/ -v
 ================================================= test session starts =================================================
-platform win32 -- Python 3.10.6, pytest-8.3.0, pluggy-1.6.0 -- C:\Users\deepa\OneDrive\Desktop\novintex\.venv\Scripts\python.exe
+platform win32 -- Python 3.10.6, pytest-8.3.0, pluggy-1.6.0 -- C:\Users\deepak\OneDrive\Desktop\novintex\.venv\Scripts\python.exe
 cachedir: .pytest_cache
-rootdir: C:\Users\deepa\OneDrive\Desktop\back\novintix-assesment
+rootdir: C:\Users\deepak\OneDrive\Desktop\back\novintix-assesment
 plugins: anyio-4.13.0
 collected 65 items
 
