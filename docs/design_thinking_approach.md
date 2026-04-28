@@ -111,6 +111,16 @@ Simple ◄───────────────────────�
 | **Agentic AI (Multi-Agent)** | Specialized agents, layered guardrails, modular, auditable | More complex to build and maintain | ✅ Right balance of capability and safety |
 | **Full Autonomous AI** | Maximum automation | Unacceptable risk in healthcare, no human oversight | ❌ Regulatory and ethical non-starter |
 
+#### Why We Did Not Use LangGraph, LangChain, ADK, or A2A
+
+For this prototype, I intentionally used a lightweight, explicit orchestration layer instead of a framework-based agent graph.
+
+- **Safety and auditability first**: A healthcare system must be deterministic and easy to explain; explicit routing and guardrails are simpler to review than a dynamic agent graph.
+- **Lower operational risk**: Fewer dependencies and hidden behaviors reduce compliance and debugging risk for a candidate assessment.
+- **Testability**: The current design keeps unit tests fast and stable without requiring LLM infrastructure or network calls.
+- **Scope fit**: The requirements are routing, guardrails, and monitoring; a custom orchestrator pattern is sufficient without the overhead of a framework.
+- **Extensibility remains**: If the scope grows, the orchestration layer can be refactored into LangGraph or similar later without changing the guardrails and monitoring contracts.
+
 #### Agent Capability Mapping
 
 We mapped each inquiry type to the capabilities needed:
