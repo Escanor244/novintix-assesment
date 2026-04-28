@@ -201,6 +201,11 @@ class Orchestrator:
         if config.llm.enabled and not os.getenv("PYTEST_CURRENT_TEST"):
             llm_intent = self.llm.classify_intent(text)
             if llm_intent:
+                if llm_intent.confidence < config.orchestrator.high_confidence_threshold:
+                    llm_intent.requires_escalation = True
+                    llm_intent.escalation_reason = (
+                        f"Low confidence ({llm_intent.confidence:.2f}) for LLM intent"
+                    )
                 if (
                     llm_intent.category == InquiryCategory.UNKNOWN
                     and not llm_intent.requires_escalation

@@ -9,6 +9,7 @@ from typing import Any, Optional
 import httpx
 
 from src.config import LLMConfig
+from src.guardrails.privacy_guardrail import redact_pii
 from src.models.schemas import InquiryCategory, IntentClassification
 
 
@@ -94,12 +95,13 @@ class LLMClient:
 
 
 def _build_prompt(text: str) -> str:
+    safe_text = redact_pii(text)
     return (
         "Classify the patient inquiry into one of these categories: "
         "appointment, prescription, lab_result, insurance, escalation, unknown. "
         "Return JSON only with keys: category, confidence, matched_keywords, "
         "requires_escalation, escalation_reason. Confidence is 0 to 1.\n\n"
-        f"Inquiry: {text}\n"
+        f"Inquiry: {safe_text}\n"
     )
 
 
