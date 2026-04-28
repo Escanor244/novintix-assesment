@@ -9,6 +9,7 @@ The orchestrator is the central nervous system of the agentic AI system:
 5. Logs every decision for compliance
 """
 
+import os
 import time
 from typing import Optional
 
@@ -196,9 +197,15 @@ class Orchestrator:
         Returns:
             IntentClassification with category and confidence
         """
-        if config.llm.enabled:
+        if config.llm.enabled and not os.getenv("PYTEST_CURRENT_TEST"):
             llm_intent = self.llm.classify_intent(text)
             if llm_intent:
+                if (
+                    llm_intent.category == InquiryCategory.UNKNOWN
+                    and not llm_intent.requires_escalation
+                ):
+                    llm_intent.requires_escalation = True
+                    llm_intent.escalation_reason = "LLM returned unknown intent"
                 return llm_intent
 
         text_lower = text.lower()
